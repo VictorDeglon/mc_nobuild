@@ -1,0 +1,8 @@
+name: NoBuild
+main: com.example.nobuild.NoBuild
+version: 1.0
+api-version: 1.21
+permissions:
+  nobuild.bypass:
+    description: Allows player to bypass no-build restriction
+    default: op
