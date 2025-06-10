@@ -4,6 +4,36 @@ A simple Minecraft plugin that prevents non-admin players from placing blocks. P
 
 This project targets Spigot **1.21.1**.
 
+## Getting Started on Ubuntu WSL
+
+If you are using Windows Subsystem for Linux (WSL) with the Ubuntu
+distribution, follow these steps to install the necessary tools and build the
+plugin with **Java 21**.
+
+1. **Install required packages**
+   ```bash
+   sudo apt update
+   sudo apt install openjdk-21-jdk maven git
+   ```
+2. **Verify the Java installation**
+   ```bash
+   java --version    # should print version 21
+   mvn -version      # confirms Maven sees Java 21
+   ```
+3. **Clone the repository**
+   ```bash
+   git clone <repository-url>
+   cd mc_nobuild
+   ```
+4. **Compile the plugin**
+   ```bash
+   mvn package
+   ```
+   The build output appears under `target/` when the process completes.
+
+You can now continue with the regular installation steps below to place the
+JAR in your Spigot server's `plugins` directory.
+
 ## How to Build and Install
 
 Follow these steps to compile the plugin and deploy it on your Spigot server.
