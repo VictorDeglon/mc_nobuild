@@ -28,3 +28,12 @@ Follow these steps to compile the plugin and deploy it on your Spigot server.
    - Grant the `nobuild.bypass` permission to any players who should be allowed to build.
 
 Once installed, non-operator players without the permission will be unable to place blocks, helping prevent griefing on your server.
+
+## Makefile Commands
+
+You can also use the provided Makefile for common development tasks:
+
+- `make compile` – Build the plugin JAR with Maven.
+- `make test` – Run any unit tests.
+- `make lint` – Execute Checkstyle analysis.
+
