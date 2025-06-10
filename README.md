@@ -1,69 +1,107 @@
 # NoBuild
 
-A simple Minecraft plugin that prevents non-admin players from placing blocks. Players can still break and collect items. Operators or players with the permission `nobuild.bypass` are exempt from this restriction.
+NoBuild is a tiny **Spigot** plugin that stops regular players from placing
+blocks.  Operators (OPs) or anyone with the permission node `nobuild.bypass`
+can still build freely.  The plugin targets **Spigot 1.21.1** and is meant as a
+simple learning project.
 
-This project targets Spigot **1.21.1**.
+Below you will find a verbose walkthrough explaining how to compile the plugin
+and install it on either a local Windows machine or an Ubuntu server such as an
+Orange Pi 5.  Each section includes links to helpful resources so you can read
+more about the tools being used.
 
-## Getting Started on Ubuntu WSL
+---
 
-If you are using Windows Subsystem for Linux (WSL) with the Ubuntu
-distribution, follow these steps to install the necessary tools and build the
-plugin with **Java 21**.
+## 1. Prerequisites
 
-1. **Install required packages**
-   ```bash
-   sudo apt update
-   sudo apt install openjdk-21-jdk maven git
-   ```
-2. **Verify the Java installation**
-   ```bash
-   java --version    # should print version 21
-   mvn -version      # confirms Maven sees Java 21
-   ```
-3. **Clone the repository**
+* **Java Development Kit (JDK)** – Any modern version (8 or later) will work.
+  [Adoptium](https://adoptium.net/) explains how to download and install OpenJDK
+  on all platforms.
+* **Apache Maven** – Used to compile the plugin. Installation instructions are
+  available on the [official website](https://maven.apache.org/install.html).
+* **Git** – Required if you want to clone this repository. See the
+  [Git Book](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) for
+  installation details.
+
+---
+
+## 2. Building on Windows
+
+If you develop on Windows, you can either use **WSL** (Windows Subsystem for
+Linux) or install the tools natively. The commands below work in PowerShell or
+Command Prompt once Java and Maven are installed.
+
+1. **Clone the repository**
    ```bash
    git clone <repository-url>
    cd mc_nobuild
    ```
-4. **Compile the plugin**
+2. **Compile the plugin**
    ```bash
    mvn package
    ```
-   The build output appears under `target/` when the process completes.
+   Maven downloads the Spigot API and writes the compiled JAR to the `target/`
+   directory. The file is typically named `nobuild-1.0-SNAPSHOT.jar`.
+3. **Where to find the JAR**
+   The exact path will be:
+   ```
+   mc_nobuild\target\nobuild-1.0-SNAPSHOT.jar
+   ```
+   (The version number may differ if you update the `pom.xml`.)
 
-You can now continue with the regular installation steps below to place the
-JAR in your Spigot server's `plugins` directory.
+For background reading on Java development on Windows see this
+[Microsoft guide](https://learn.microsoft.com/windows/dev-environment/java-jdk).
 
-## How to Build and Install
+---
 
-Follow these steps to compile the plugin and deploy it on your Spigot server.
+## 3. Building on Ubuntu / Orange Pi 5
 
-1. **Install Java and Maven**
-   - Make sure Java Development Kit (JDK) 8 or later is installed. You can verify by running `java -version`.
-   - Install Apache Maven and verify with `mvn -version`.
-2. **Clone or Download This Repository**
-   - `git clone <repository-url>` or download the ZIP archive and extract it.
-   - `cd` into the `mc_nobuild` project directory.
-3. **Compile the Plugin**
-   - Run `mvn package` from the project root. Maven will download the Spigot API dependency and produce a JAR file.
-   - When the build finishes, look in the `target/` directory for a file named similar to `nobuild-1.0-SNAPSHOT.jar`.
-4. **Prepare a Spigot Server**
-   - Obtain a Spigot 1.21.1 server JAR and set up a server folder.
-   - Start the server once to generate the default folders if you haven't already.
-5. **Install the Plugin**
-   - Copy the JAR from the `target/` directory into your server's `plugins/` folder.
-   - Restart or start the server. Spigot will load the NoBuild plugin during startup.
-6. **Verify and Configure**
-   - Run `/plugins` in the server console or in-game to confirm that "NoBuild" appears in the list.
-   - Grant the `nobuild.bypass` permission to any players who should be allowed to build.
+On a headless Ubuntu server (including small boards like the Orange Pi 5) the
+steps are nearly the same. Use your terminal and run:
 
-Once installed, non-operator players without the permission will be unable to place blocks, helping prevent griefing on your server.
+```bash
+sudo apt update
+sudo apt install openjdk-17-jdk maven git
+git clone <repository-url>
+cd mc_nobuild
+mvn package
+```
 
-## Makefile Commands
+Again, the finished JAR appears in the `target/` directory. You can read more
+about package management on Ubuntu in the
+[official docs](https://help.ubuntu.com/lts/serverguide/apt.html).
 
-You can also use the provided Makefile for common development tasks:
+---
 
-- `make compile` – Build the plugin JAR with Maven.
-- `make test` – Run any unit tests.
-- `make lint` – Execute Checkstyle analysis.
+## 4. Installing the Plugin on a Spigot Server
+
+1. **Prepare your server** – Follow the
+   [Spigot BuildTools guide](https://www.spigotmc.org/wiki/buildtools/) to obtain
+   a compatible server JAR and run it once so the `plugins/` folder exists.
+2. **Copy the plugin** – Move `nobuild-1.0-SNAPSHOT.jar` into the server's
+   `plugins/` directory.
+3. **Start or restart the server** – Spigot should print a message indicating
+   that `NoBuild` loaded successfully.
+4. **Verify** – Use the `/plugins` command in game or in the console. You can
+   then grant the `nobuild.bypass` permission to players who should be allowed
+   to build.
+
+After installation, any player without that permission will receive a red
+warning message when attempting to place blocks.  This helps keep your lobby
+area tidy and free from accidental griefing.
+
+---
+
+## 5. Development Helpers
+
+For convenience the repository includes a simple `Makefile` with a few targets:
+
+```
+make compile  # runs 'mvn package'
+make test     # placeholder for any future unit tests
+make lint     # runs Checkstyle analysis
+```
+
+Each command simply invokes Maven behind the scenes. Feel free to extend the
+Makefile with your own tasks as you learn more.
 
