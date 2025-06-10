@@ -1,8 +1,20 @@
+# Basic plugin information. The 'name' field is what shows up when you run
+# /plugins in game. 'main' is the fully-qualified class name that extends
+# JavaPlugin. 'api-version' tells Spigot which set of API features we depend on.
 name: NoBuild
 main: com.example.nobuild.NoBuild
 version: 1.0
 api-version: 1.21
+
+# Any permissions we define go here.  Players with 'nobuild.bypass' will be
+# allowed to place blocks. By default only server operators (OPs) have this
+# permission but you can give it to others with a permission management plugin.
 permissions:
   nobuild.bypass:
     description: Allows player to bypass no-build restriction
     default: op
+
+# Additional ideas:
+#   You could define more permissions in the future, for example
+#   'nobuild.admin' to reload plugin configuration, or
+#   'nobuild.tempbypass' for temporary building permissions.
