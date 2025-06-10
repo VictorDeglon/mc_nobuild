@@ -37,12 +37,11 @@ public class NoBuild extends JavaPlugin implements Listener {
     }
 
     // Helper method to decide if a player is allowed to place blocks.
-    // Currently it simply checks if the player is an operator or has the
-    // permission node "nobuild.bypass". You can expand this method with more
-    // complex logic, for example checking if the player is within a certain
-    // world or region.
+    // The plugin keeps things simple and only lets server operators build.
+    // WorldGuard or other protection plugins can still intervene at higher
+    // priorities if desired.
     private boolean canBuild(org.bukkit.entity.Player player) {
-        return player.isOp() || player.hasPermission("nobuild.bypass");
+        return player.isOp();
     }
 
     // Event handler that fires every time a player attempts to place a block.
