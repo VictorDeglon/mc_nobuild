@@ -1,9 +1,8 @@
 # NoBuild
 
 NoBuild is a tiny **Spigot** plugin that stops regular players from placing
-blocks.  Operators (OPs) or anyone with the permission node `nobuild.bypass`
-can still build freely.  The plugin targets **Spigot 1.21.1** and is meant as a
-simple learning project.
+blocks. Only server operators (OPs) are allowed to build. The plugin targets
+**Spigot 1.21.1** and is meant as a simple learning project.
 
 Below you will find a verbose walkthrough explaining how to compile the plugin
 and install it on either a local Windows machine or an Ubuntu server such as an
@@ -82,12 +81,12 @@ about package management on Ubuntu in the
    `plugins/` directory.
 3. **Start or restart the server** – Spigot should print a message indicating
    that `NoBuild` loaded successfully.
-4. **Verify** – Use the `/plugins` command in game or in the console. You can
-   then grant the `nobuild.bypass` permission to players who should be allowed
-   to build.
+4. **Verify** – Use the `/plugins` command in game or in the console to check
+   that `NoBuild` loaded successfully. Only server operators will be able to
+   place blocks.
 
-After installation, any player without that permission will receive a red
-warning message when attempting to place blocks.  This helps keep your lobby
+After installation, any non-operator attempting to place a block will receive a
+red warning message.  This helps keep your lobby
 area tidy and free from accidental griefing.
 
 ---

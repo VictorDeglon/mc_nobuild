@@ -6,13 +6,9 @@ main: com.example.nobuild.NoBuild
 version: 1.0
 api-version: 1.21
 
-# Any permissions we define go here.  Players with 'nobuild.bypass' will be
-# allowed to place blocks. By default only server operators (OPs) have this
-# permission but you can give it to others with a permission management plugin.
-permissions:
-  nobuild.bypass:
-    description: Allows player to bypass no-build restriction
-    default: op
+# This plugin does not define any permissions. Only server operators
+# are allowed to place blocks. WorldGuard or similar plugins may still
+# impose additional restrictions on a per-region basis.
 
 # Additional ideas:
 #   You could define more permissions in the future, for example
